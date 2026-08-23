@@ -1,279 +1,79 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Paramètres - JAAY</title>
-<style>
-:root{
-  --orange: #E67E22;
-  --vert: #27AE60;
-  --bg: #FFF8E1;
-  --card: #FFFFFF;
-  --text: #2C3E50;
-  --border: #E0E0E0;
-  --muted: #F8F8F8;
-}
-body.dark{
-  --bg: #1A1A1A;
-  --card: #2C2C2C;
-  --text: #EAEAEA;
-  --border: #444;
-  --muted: #333;
-}
-*{box-sizing: border-box; margin:0; padding:0; transition: background 0.3s, color 0.3s;}
-body { background: var(--bg); font-family: 'Segoe UI', Arial; color: var(--text); padding: 0; margin:0; }
-.header-modern { background: linear-gradient(135deg, var(--orange), #D35400); color: white; padding: 35px 20px 20px; text-align: center; border-radius: 0 0 25px 25px; box-shadow: 0 4px 15px rgba(230,126,34,0.3); position: relative; }
-.header-modern h1 { font-size: 26px; display: flex; align-items: center; justify-content: center; gap: 10px; }
-.header-modern span.icon { font-size: 32px; }
-
-.theme-toggle { position: absolute; top: 15px; right: 20px; background: rgba(255,255,255,0.2); border: none; color: white; padding: 8px 12px; border-radius: 20px; cursor: pointer; font-size: 20px; }
-
-.container { max-width: 650px; margin: -20px auto 20px; padding: 20px; }
-.menu { display: flex; gap: 10px; margin-bottom: 25px; justify-content: center; background: var(--card); padding: 8px; border-radius: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
-.menu a { text-decoration: none; color: var(--vert); font-weight: 600; padding: 10px 18px; border-radius: 10px; font-size: 14px; transition: 0.3s; }
-.menu a.active { background: var(--vert); color: white; }
-
-.card { background: var(--card); padding: 20px; border-radius: 18px; margin-bottom: 18px; box-shadow: 0 3px 12px rgba(0,0,0,0.1); border: 1px solid var(--border); transition: transform 0.2s; }
-.card:hover { transform: translateY(-2px); }
-.card-header { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
-.card-header.emoji { font-size: 24px; }
-.card-header h3 { color: var(--orange); font-size: 17px; font-weight: 700; }
-
-select { width: 100%; padding: 14px; border: 2px solid var(--border); border-radius: 12px; font-size: 15px; background: var(--muted); color: var(--text); transition: 0.3s; }
-select:focus { border-color: var(--vert); outline: none; }
-
-.accordion { margin-top: 12px; }
-.acc-btn { width: 100%; background: var(--muted); border: none; padding: 14px; border-radius: 12px; text-align: left; font-size: 15px; font-weight: 600; cursor: pointer; display: flex; justify-content: space-between; align-items: center; color: var(--text); }
-.acc-btn:after { content: '▼'; font-size: 12px; transition: 0.3s; }
-.acc-btn.open:after { transform: rotate(180deg); }
-.acc-content { display: none; padding: 18px; background: var(--card); border-radius: 0 0 12px 12px; font-size: 13px; line-height: 1.7; color: var(--text); margin-top: 5px; border: 1px solid var(--border); }
-.acc-content.show { display: block; }
-
-.checkbox { display: flex; align-items: center; gap: 10px; margin-top: 12px; padding: 12px; background: var(--muted); border-radius: 10px; }
-.checkbox input { width: 18px; height: 18px; accent-color: var(--vert); }
-
-.btn { background: var(--vert); color: white; border: none; padding: 16px; border-radius: 14px; font-size: 17px; cursor: pointer; width: 100%; margin-top: 12px; font-weight: 700; transition: 0.3s; box-shadow: 0 4px 10px rgba(39,174,96,0.2); }
-.btn:hover { background: #219A52; transform: translateY(-1px); }
-.btn-share { background: var(--orange); box-shadow: 0 4px 10px rgba(230,126,34,0.2); }
-.btn-share:hover { background: #D35400; }
-.btn-retour { background: #7F8C8D; font-size: 14px; padding: 10px; margin-top: 15px; box-shadow: none; }
-
-#msg { text-align:center; color:var(--vert); margin-top:12px; font-weight:bold; font-size: 15px; }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title id="title">Ma Boutique - JAAY</title>
+  <style>
+    :root{
+      --bg: #FFF8E1;
+      --card: #FFFFFF;
+      --text: #2C3E50;
+      --orange: #E67E22;
+      --vert: #25D366;
+    }
+    body.dark{
+      --bg: #121212;
+      --card: #1E1E1E;
+      --text: #EAEAEA;
+    }
+    *{ transition: background 0.3s, color 0.3s; }
+    body { background: var(--bg); font-family: Arial; margin: 0; color: var(--text); }
+   .header { background: var(--orange); color: white; padding: 30px 20px; text-align: center; }
+   .header h1 { margin: 0; font-size: 28px; }
+   .container { max-width: 600px; margin: 20px auto; padding: 20px; }
+   .produit { background: var(--card); padding: 15px; margin: 10px 0; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); font-size: 16px; border: 1px solid #eee; }
+    body.dark.produit { border-color: #333; }
+   .whatsapp-btn { display: block; background: var(--vert); color: white; text-align: center; padding: 15px;
+                    border-radius: 10px; text-decoration: none; font-size: 18px; margin-top: 20px; font-weight: bold; }
+   .footer { text-align: center; padding: 20px; font-size: 12px; color: #777; }
+    body.dark.footer { color: #AAA; }
+  </style>
 </head>
 <body>
-
-<div class="header-modern">
-  <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">🌙</button>
-  <h1><span class="icon">≡</span> <span data-lang="title">Paramètres JAAY</span></h1>
-</div>
-
-<div class="container">
-  <div class="menu">
-    <a href="create.html" data-lang="menu_create">Créer</a>
-    <a href="boutique.html" data-lang="menu_boutique">Boutique</a>
-    <a href="parametres.html" class="active" data-lang="menu_params">Paramètres</a>
+  <div class="header">
+    <h1 id="nomBoutique">Ma Boutique</h1>
+    <p>Commandez directement sur WhatsApp</p>
   </div>
 
-  <div class="card">
-    <div class="card-header">
-      <span class="emoji">🌍</span>
-      <h3 data-lang="langue">Langue</h3>
-    </div>
-    <select id="langue" onchange="changerLangue(this.value)">
-      <option value="fr">🇫🇷 Français</option>
-      <option value="wo">🇸🇳 Wolof</option>
-      <option value="en">🇺🇸 English</option>
-    </select>
+  <div class="container">
+    <div class="produit">1. Produit 1</div>
+    <div class="produit">2. Produit 2</div>
+    <div class="produit">3. Produit 3</div>
+
+    <a id="whatsappLink" class="whatsapp-btn" target="_blank">
+      📱 Commander sur WhatsApp
+    </a>
   </div>
 
-  <div class="card">
-    <div class="card-header">
-      <span class="emoji">💰</span>
-      <h3 data-lang="devise">Devise</h3>
-    </div>
-    <select id="devise">
-      <option value="XOF">FCFA - XOF</option>
-      <option value="EUR">Euro - EUR</option>
-      <option value="USD">Dollar - USD</option>
-    </select>
-  </div>
+  <div class="footer">Boutique créée avec JAAY.sn</div>
 
-  <div class="card">
-    <div class="card-header">
-      <span class="emoji">🔒</span>
-      <h3 data-lang="politique">Politique de Confidentialité</h3>
-    </div>
-    <div class="accordion">
-      <button class="acc-btn" onclick="toggleAcc(this)" data-lang="lire_politique">Lire la politique complète</button>
-      <div class="acc-content" id="textePolitique"></div>
-    </div>
-  </div>
+  <script>
+    // CHARGER LE THEME AU DEMARRAGE
+    window.addEventListener('DOMContentLoaded', () => {
+      const savedTheme = localStorage.getItem('jaay_theme');
+      if(savedTheme === 'dark'){
+        document.body.classList.add('dark');
+      }
+    });
 
-  <div class="card">
-    <div class="card-header">
-      <span class="emoji">📄</span>
-      <h3 data-lang="cgv">Conditions Générales de Vente</h3>
-    </div>
-    <div class="accordion">
-      <button class="acc-btn" onclick="toggleAcc(this)" data-lang="lire_cgv">Lire les CGV complètes</button>
-      <div class="acc-content" id="texteCGV"></div>
-    </div>
-    <div class="checkbox">
-      <input type="checkbox" id="accepteCGV">
-      <label for="accepteCGV" data-lang="accepte_cgv">J'accepte les CGV</label>
-    </div>
-  </div>
+    const urlParams = new URLSearchParams(window.location.search);
+    const nom = urlParams.get('nom') || 'Ma Boutique';
+    const whatsapp = urlParams.get('w') || '221771234567';
+    const p1 = urlParams.get('p1') || '';
+    const p2 = urlParams.get('p2') || '';
+    const p3 = urlParams.get('p3') || '';
 
-  <button class="btn btn-share" onclick="partager()" data-lang="partager">→ Partager l'Application JAAY</button>
-  <button class="btn" onclick="sauvegarder()" data-lang="sauvegarder">Sauvegarder</button>
-  <p id="msg"></p>
-</div>
+    document.getElementById('nomBoutique').innerText = nom;
+    document.getElementById('title').innerText = nom + ' - JAAY';
 
-<script>
-// TRADUCTIONS
-const translations = {
-  fr: {
-    title: "Paramètres JAAY",
-    menu_create: "Créer",
-    menu_boutique: "Boutique",
-    menu_params: "Paramètres",
-    langue: "Langue",
-    devise: "Devise",
-    politique: "Politique de Confidentialité",
-    cgv: "Conditions Générales de Vente",
-    lire_politique: "Lire la politique complète",
-    lire_cgv: "Lire les CGV complètes",
-    accepte_cgv: "J'accepte les CGV",
-    partager: "→ Partager l'Application JAAY",
-    sauvegarder: "Sauvegarder",
-    ferme: "← Fermer",
-    sauve_msg: "✅ Paramètres Sauvegardés!",
-    politique_texte: `<b>POLITIQUE DE CONFIDENTIALITÉ JAAY</b><br><br><b>1. COLLECTE DES DONNÉES</b><br>JAAY collecte uniquement votre nom de boutique, numéro WhatsApp et les produits que vous ajoutez. Ces données sont stockées uniquement sur votre téléphone.<br><br><b>2. UTILISATION DES DONNÉES</b><br>Vos informations servent uniquement à générer votre boutique et à permettre aux clients de vous contacter via WhatsApp.<br><br><b>3. PARTAGE DES DONNÉES</b><br>JAAY ne vend ni ne partage vos données personnelles avec des tiers. Vos informations restent privées.<br><br><b>4. SÉCURITÉ</b><br>Toutes les données sont enregistrées localement sur votre appareil. JAAY n'a pas accès à vos informations.<button class="btn btn-retour" onclick="fermerAcc(this)">← Fermer</button>`,
-    cgv_texte: `<b>CONDITIONS GÉNÉRALES DE VENTE JAAY</b><br><br><b>1. PRIX</b><br>Les prix sont indiqués en <span id="deviseTexte">FCFA</span> et sont TTC.<br><br><b>2. PAIEMENT</b><br>Le paiement et la livraison se font directement entre vous et le client.<br><br><b>3. RESPONSABILITÉ</b><br>JAAY n'est pas responsable des transactions entre vendeur et client.<br><br><b>4. RETOURS</b><br>Les retours sont à gérer directement entre vous et le client.<button class="btn btn-retour" onclick="fermerAcc(this)">← Fermer</button>`
-  },
-  en: {
-    title: "JAAY Settings",
-    menu_create: "Create",
-    menu_boutique: "Shop",
-    menu_params: "Settings",
-    langue: "Language",
-    devise: "Currency",
-    politique: "Privacy Policy",
-    cgv: "Terms and Conditions",
-    lire_politique: "Read full policy",
-    lire_cgv: "Read full T&C",
-    accepte_cgv: "I accept the T&C",
-    partager: "→ Share JAAY Application",
-    sauvegarder: "Save",
-    ferme: "← Close",
-    sauve_msg: "✅ Settings Saved!",
-    politique_texte: `<b>JAAY PRIVACY POLICY</b><br><br><b>1. DATA COLLECTION</b><br>JAAY only collects your shop name, WhatsApp number and products you add. This data is stored only on your phone.<br><br><b>2. USE OF DATA</b><br>Your information is used only to generate your shop and allow customers to contact you via WhatsApp.<br><br><b>3. DATA SHARING</b><br>JAAY does not sell or share your personal data with third parties. Your information remains private.<br><br><b>4. SECURITY</b><br>All data is stored locally on your device. JAAY does not have access to your information.<button class="btn btn-retour" onclick="fermerAcc(this)">← Close</button>`,
-    cgv_texte: `<b>JAAY TERMS AND CONDITIONS</b><br><br><b>1. PRICES</b><br>Prices are shown in <span id="deviseTexte">XOF</span> and include all taxes.<br><br><b>2. PAYMENT</b><br>Payment and delivery are done directly between you and the customer.<br><br><b>3. LIABILITY</b><br>JAAY is not responsible for transactions between seller and customer.<br><br><b>4. RETURNS</b><br>Returns must be handled directly between you and the customer.<button class="btn btn-retour" onclick="fermerAcc(this)">← Close</button>`
-  },
-  wo: {
-    title: "JAAY Jëfandikoo",
-    menu_create: "Dëkk",
-    menu_boutique: "Boutique",
-    menu_params: "Jëfandikoo",
-    langue: "Làkk",
-    devise: "Xalis",
-    politique: "Sëriñu Sutura",
-    cgv: "Daanu Jënd ak Jaay",
-    lire_politique: "Jàng sëriñu bi lépp",
-    lire_cgv: "Jàng daanu bi lépp",
-    accepte_cgv: "Ma nangu daanu bi",
-    partager: "→ Bëggal JAAY",
-    sauvegarder: "Denc",
-    ferme: "← Tàbbi",
-    sauve_msg: "✅ Jëfandikoo bi denc na!",
-    politique_texte: `<b>SËRIÑU SUTURA JAAY</b><br><br><b>1. JËFE DÓMË</b><br>JAAY jëlal rek turu sa boutique, numéru WhatsApp ak ay jëf yu nga def. Dómë yépp denc nañu ko ci sa téléphone rek.<br><br><b>2. JËFANDIKOO DÓMË</b><br>Sa dómë yi ñu jëfandikoo ngir def sa boutique te may nitt ñu la wo ci WhatsApp.<br><br><b>3. JARË DÓMË</b><br>JAAY du jaay walla jaare sa dómë yi. Sa dómë yi sutura lañu.<br><br><b>4. AAR</b><br>Dómë yépp denc nañu ko ci sa appareil. JAAY amul ay dómë yi.<button class="btn btn-retour" onclick="fermerAcc(this)">← Tàbbi</button>`,
-    cgv_texte: `<b>DAANU JËND AK JAAY JAAY</b><br><br><b>1. XARAJ</b><br>Xaraj yi nekk nañu ci <span id="deviseTexte">FCFA</span>.<br><br><b>2. FAAT</b><br>Faat ak xaar bi moom ñaar yi lañu ko def: sa moroom ak sa client.<br><br><b>3. RESPONSABILITÉ</b><br>JAAY du responsable transactions bi diggante sa moroom ak sa client.<br><br><b>4. DELLU</b><br>Dellu yi sa moroom ak sa client lañu ko wara def.<button class="btn btn-retour" onclick="fermerAcc(this)">← Tàbbi</button>`
-  }
-};
+    if(p1) document.querySelectorAll('.produit')[0].innerText = '1. ' + p1;
+    if(p2) document.querySelectorAll('.produit')[1].innerText = '2. ' + p2;
+    if(p3) document.querySelectorAll('.produit')[2].innerText = '3. ' + p3;
 
-// FONCTION POUR CHANGER LA LANGUE
-function changerLangue(lang){
-  localStorage.setItem('jaay_langue', lang);
-  appliquerLangue(lang);
-}
-
-function appliquerLangue(lang){
-  const t = translations[lang];
-
-  // Changer tous les textes avec data-lang
-  document.querySelectorAll('[data-lang]').forEach(el => {
-    const key = el.getAttribute('data-lang');
-    if(t[key]) el.innerText = t[key];
-  });
-
-  // Changer les textes longs
-  document.getElementById('textePolitique').innerHTML = t.politique_texte;
-  document.getElementById('texteCGV').innerHTML = t.cgv_texte;
-
-  // Changer langue du HTML
-  document.documentElement.lang = lang;
-}
-
-// MODE SOMBRE / CLAIR
-function toggleTheme(){
-  document.body.classList.toggle('dark');
-  const isDark = document.body.classList.contains('dark');
-  localStorage.setItem('jaay_theme', isDark? 'dark' : 'light');
-  document.getElementById('themeBtn').innerText = isDark? '☀️' : '🌙';
-}
-
-function toggleAcc(btn){
-  const content = btn.nextElementSibling;
-  content.classList.toggle('show');
-  btn.classList.toggle('open');
-}
-
-function fermerAcc(btn){
-  const content = btn.parentElement;
-  const accBtn = content.previousElementSibling;
-  content.classList.remove('show');
-  accBtn.classList.remove('open');
-}
-
-function sauvegarder(){
-  localStorage.setItem('jaay_devise', document.getElementById('devise').value);
-  localStorage.setItem('jaay_accepteCGV', document.getElementById('accepteCGV').checked);
-
-  const lang = localStorage.getItem('jaay_langue') || 'fr';
-  document.getElementById('msg').innerText = translations[lang].sauve_msg;
-  setTimeout(()=>{document.getElementById('msg').innerText = ''}, 2000);
-}
-
-function partager(){
-  const lang = localStorage.getItem('jaay_langue') || 'fr';
-  const texte = lang === 'en'? "Discover JAAY 🚀 Create your WhatsApp shop in 2 minutes!" : lang === 'wo'? "Jëlal JAAY 🚀 Defal sa boutique WhatsApp ci 2 minutes!" : "Découvre JAAY 🚀 Crée ta boutique WhatsApp en 2 minutes!";
-
-  if(navigator.share){
-    navigator.share({ title: 'JAAY', text: texte, url: window.location.origin });
-  } else {
-    navigator.clipboard.writeText(window.location.origin);
-    alert(lang === 'en'? 'Link copied! Share on WhatsApp' : lang === 'wo'? 'Lien bi copy na! Bëggal ko ci WhatsApp' : 'Lien copié! Partage-le sur WhatsApp');
-  }
-}
-
-// CHARGEMENT AU DÉMARRAGE
-window.onload = function(){
-  const savedLang = localStorage.getItem('jaay_langue') || 'fr';
-  const savedTheme = localStorage.getItem('jaay_theme');
-
-  document.getElementById('langue').value = savedLang;
-  appliquerLangue(savedLang);
-
-  if(savedTheme === 'dark'){
-    document.body.classList.add('dark');
-    document.getElementById('themeBtn').innerText = '☀️';
-  }
-
-  document.getElementById('devise').value = localStorage.getItem('jaay_devise') || 'XOF';
-  document.getElementById('accepteCGV').checked = localStorage.getItem('jaay_accepteCGV') === 'true';
-}
-</script>
+    const produits = [p1, p2, p3].filter(p => p!== '').join('\n');
+    const message = `Salut ${nom}, je veux commander :\n${produits}\n\nOn discute du paiement et livraison ensemble.\n\nvia JAAY`;
+    document.getElementById('whatsappLink').href = `https://wa.me/${whatsapp}?text=${encodeURIComponent(message)}`;
+  </script>
 </body>
   </html>
