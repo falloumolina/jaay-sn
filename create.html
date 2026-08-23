@@ -6,11 +6,14 @@
   <title>Créer ma boutique - JAAY</title>
   <style>
     body { background: #FFF8E1; font-family: Arial; padding: 20px; }
-    .container { max-width: 600px; margin: 0 auto; background: white; padding: 30px; border-radius: 15px; }
-    h1 { color: #E67E22; text-align: center; }
-    input, textarea { width: 100%; padding: 12px; margin: 10px 0; border: 2px solid #ddd; border-radius: 8px; }
-    button { width: 100%; padding: 15px; background: #27AE60; color: white; border: none; border-radius: 8px; font-size: 18px; cursor: pointer; }
+   .container { max-width: 600px; margin: 0 auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+    h1 { color: #E67E22; text-align: center; margin-bottom: 20px; }
+    label { font-weight: bold; margin-top: 10px; display: block; }
+    input { width: 100%; padding: 12px; margin: 5px 0 15px 0; border: 2px solid #ddd; border-radius: 8px; font-size: 16px; }
+    button { width: 100%; padding: 15px; background: #27AE60; color: white; border: none; border-radius: 8px; font-size: 18px; cursor: pointer; font-weight: bold; }
     button:hover { background: #219A52; }
+    #result { margin-top:20px; text-align: center; }
+    #result a { color:#27AE60; font-weight: bold; font-size: 18px; }
   </style>
 </head>
 <body>
@@ -20,8 +23,8 @@
       <label>Nom de ta boutique</label>
       <input type="text" id="nom" placeholder="Ex: Mode Fatou" required>
 
-      <label>Numéro WhatsApp</label>
-      <input type="tel" id="whatsapp" placeholder="77 123 45 67" required>
+      <label>Numéro WhatsApp avec indicatif</label>
+      <input type="tel" id="whatsapp" placeholder="Ex: 221771234567" required>
 
       <label>Produit 1</label>
       <input type="text" id="p1" placeholder="Ex: Robe Wax - 15000 FCFA">
@@ -34,17 +37,23 @@
 
       <button type="submit">Générer ma boutique</button>
     </form>
-    <div id="result" style="margin-top:20px;"></div>
+    <div id="result"></div>
   </div>
 
   <script>
     document.getElementById('boutiqueForm').addEventListener('submit', function(e) {
       e.preventDefault();
       const nom = document.getElementById('nom').value;
-      const lien = `boutique.html?nom=${encodeURIComponent(nom)}`;
-      document.getElementById('result').innerHTML = 
-        `<p>✅ Ta boutique est prête !</p>
-         <a href="${lien}" target="_blank">Voir ma boutique: ${lien}</a>`;
+      const whatsapp = document.getElementById('whatsapp').value.replace(/\D/g,'');
+      const p1 = document.getElementById('p1').value;
+      const p2 = document.getElementById('p2').value;
+      const p3 = document.getElementById('p3').value;
+
+      const lien = `boutique.html?nom=${encodeURIComponent(nom)}&w=${whatsapp}&p1=${encodeURIComponent(p1)}&p2=${encodeURIComponent(p2)}&p3=${encodeURIComponent(p3)}`;
+
+      document.getElementById('result').innerHTML =
+        `<p>✅ Ta boutique est prête!</p>
+         <a href="${lien}" target="_blank">👉 Voir ma boutique</a>`;
     });
   </script>
 </body>
