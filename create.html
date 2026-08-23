@@ -6,10 +6,13 @@
   <title>Créer ma boutique - JAAY</title>
   <style>
     body { background: #FFF8E1; font-family: Arial; padding: 20px; }
-   .container { max-width: 600px; margin: 0 auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-    h1 { color: #E67E22; text-align: center; margin-bottom: 20px; }
+    .container { max-width: 600px; margin: 0 auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+    h1 { color: #E67E22; text-align: center; margin-bottom: 15px; }
+    .menu { display: flex; gap: 10px; margin-bottom: 25px; justify-content: center; }
+    .menu a { text-decoration: none; color: #27AE60; font-weight: bold; padding: 8px 15px; border: 2px solid #27AE60; border-radius: 8px; font-size: 14px; }
+    .menu a.active { background: #27AE60; color: white; }
     label { font-weight: bold; margin-top: 10px; display: block; }
-    input { width: 100%; padding: 12px; margin: 5px 0 15px 0; border: 2px solid #ddd; border-radius: 8px; font-size: 16px; }
+    input { width: 100%; padding: 12px; margin: 5px 0 15px 0; border: 2px solid #ddd; border-radius: 8px; font-size: 16px; box-sizing: border-box; }
     button { width: 100%; padding: 15px; background: #27AE60; color: white; border: none; border-radius: 8px; font-size: 18px; cursor: pointer; font-weight: bold; }
     button:hover { background: #219A52; }
     #result { margin-top:20px; text-align: center; }
@@ -19,6 +22,13 @@
 <body>
   <div class="container">
     <h1>Créer ma boutique JAAY</h1>
+
+    <div class="menu">
+      <a href="create.html" class="active">Créer</a>
+      <a href="boutique.html">Boutique</a>
+      <a href="parametres.html">Paramètres</a>
+    </div>
+
     <form id="boutiqueForm">
       <label>Nom de ta boutique</label>
       <input type="text" id="nom" placeholder="Ex: Mode Fatou" required>
@@ -41,6 +51,10 @@
   </div>
 
   <script>
+    // Pré-remplir avec les paramètres sauvegardés
+    document.getElementById('nom').value = localStorage.getItem('nomBoutique') || '';
+    document.getElementById('whatsapp').value = localStorage.getItem('numeroWhatsapp') || '';
+
     document.getElementById('boutiqueForm').addEventListener('submit', function(e) {
       e.preventDefault();
       const nom = document.getElementById('nom').value;
@@ -48,6 +62,10 @@
       const p1 = document.getElementById('p1').value;
       const p2 = document.getElementById('p2').value;
       const p3 = document.getElementById('p3').value;
+
+      // Sauvegarder aussi dans les paramètres
+      localStorage.setItem('nomBoutique', nom);
+      localStorage.setItem('numeroWhatsapp', whatsapp);
 
       const lien = `boutique.html?nom=${encodeURIComponent(nom)}&w=${whatsapp}&p1=${encodeURIComponent(p1)}&p2=${encodeURIComponent(p2)}&p3=${encodeURIComponent(p3)}`;
 
@@ -57,4 +75,4 @@
     });
   </script>
 </body>
-        </html>
+  </html>
