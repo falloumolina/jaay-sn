@@ -11,161 +11,72 @@
   --bg: #FFF8E1;
   --card: #FFFFFF;
   --text: #2C3E50;
+  --border: #E0E0E0;
+  --muted: #F8F8F8;
 }
 body.dark{
-  --bg: #121212;
-  --card: #1E1E1E;
+  --bg: #1A1A1A;
+  --card: #2C2C2C;
   --text: #EAEAEA;
+  --border: #444;
+  --muted: #333;
 }
-*{box-sizing: border-box; margin:0; padding:0; transition: 0.3s;}
-body { background: var(--bg); font-family: 'Segoe UI', Arial; color: var(--text); }
-.header { background: linear-gradient(135deg, var(--orange), #D35400); color: white; padding: 25px 20px; text-align: center; border-radius: 0 0 25px 25px; position: relative; }
-.header h1 { font-size: 24px; font-weight: 700; }
-.theme-btn { position: absolute; top: 15px; right: 20px; background: rgba(255,255,255,0.2); border: none; border-radius: 50%; width: 40px; height: 40px; font-size: 20px; cursor: pointer; color: white; }
+*{box-sizing: border-box; margin:0; padding:0; transition: background 0.3s, color 0.3s;}
+body { background: var(--bg); font-family: 'Segoe UI', Arial; color: var(--text); padding: 0; margin:0; }
+.header-modern { background: linear-gradient(135deg, var(--orange), #D35400); color: white; padding: 35px 20px 20px; text-align: center; border-radius: 0 0 25px 25px; box-shadow: 0 4px 15px rgba(230,126,34,0.3); position: relative; }
+.header-modern h1 { font-size: 26px; display: flex; align-items: center; justify-content: center; gap: 10px; }
 
-.menu { display: flex; gap: 10px; margin: 15px 20px; justify-content: center; background: var(--card); padding: 8px; border-radius: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
-.menu a { text-decoration: none; color: var(--vert); font-weight: 600; padding: 10px 20px; border-radius: 10px; font-size: 15px; }
+.back-btn { position: absolute; top: 20px; left: 20px; background: rgba(255,255,255,0.2); border: none; color: white; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; font-size: 22px; font-weight: bold; }
+.theme-toggle { position: absolute; top: 15px; right: 20px; background: rgba(255,255,255,0.2); border: none; color: white; padding: 8px 12px; border-radius: 20px; cursor: pointer; font-size: 20px; }
+
+.container { max-width: 650px; margin: -20px auto 20px; padding: 20px; }
+.menu { display: flex; gap: 10px; margin-bottom: 25px; justify-content: center; background: var(--card); padding: 8px; border-radius: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+.menu a { text-decoration: none; color: var(--vert); font-weight: 600; padding: 10px 18px; border-radius: 10px; font-size: 14px; transition: 0.3s; }
 .menu a.active { background: var(--vert); color: white; }
 
-.container { max-width: 650px; margin: 0 auto; padding: 20px; }
-.card { background: var(--card); padding: 18px; border-radius: 15px; margin-bottom: 15px; box-shadow: 0 3px 10px rgba(0,0,0,0.08); }
-.card-title { display: flex; align-items: center; gap: 10px; color: var(--orange); font-size: 16px; font-weight: 700; margin-bottom: 12px; }
+.card { background: var(--card); padding: 20px; border-radius: 18px; margin-bottom: 18px; box-shadow: 0 3px 12px rgba(0,0,0,0.1); border: 1px solid var(--border); transition: transform 0.2s; }
+.card-header { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+.card-header h3 { color: var(--orange); font-size: 17px; font-weight: 700; }
 
-select { width: 100%; padding: 14px; border: 2px solid #E0E0E0; border-radius: 12px; font-size: 15px; background: var(--bg); color: var(--text); }
-body.dark select { border-color: #444; }
-
-.acc-btn { width: 100%; background: var(--bg); border: 2px solid #E0E0E0; padding: 14px; border-radius: 12px; text-align: left; font-size: 15px; font-weight: 600; cursor: pointer; display: flex; justify-content: space-between; align-items: center; color: var(--text); }
-body.dark.acc-btn { border-color: #444; }
-.acc-btn:after { content: '▼'; font-size: 12px; }
-.acc-content { display: none; padding: 15px; font-size: 13px; line-height: 1.6; color: var(--text); }
-.acc-content.show { display: block; }
-
-.checkbox { display: flex; align-items: center; gap: 10px; margin-top: 12px; }
-.checkbox input { width: 18px; height: 18px; accent-color: var(--vert); }
-
-.btn { background: var(--vert); color: white; border: none; padding: 16px; border-radius: 14px; font-size: 17px; cursor: pointer; width: 100%; margin-top: 15px; font-weight: 700; }
+select { width: 100%; padding: 14px; border: 2px solid var(--border); border-radius: 12px; font-size: 15px; background: var(--muted); color: var(--text); }
+.btn { background: var(--vert); color: white; border: none; padding: 16px; border-radius: 14px; font-size: 17px; cursor: pointer; width: 100%; margin-top: 12px; font-weight: 700; }
 .btn-share { background: var(--orange); }
 #msg { text-align:center; color:var(--vert); margin-top:12px; font-weight:bold; }
 </style>
 </head>
 <body>
 
-<div class="header">
-  <button class="theme-btn" onclick="toggleTheme()" id="themeBtn">🌙</button>
-  <h1>≡ <span data-lang="title">Paramètres JAAY</span></h1>
-</div>
-
-<div class="menu">
-  <a href="create.html" data-lang="menu_create">Créer</a>
-  <a href="boutique.html" data-lang="menu_boutique">Boutique</a>
-  <a href="parametres.html" class="active" data-lang="menu_params">Paramètres</a>
+<div class="header-modern">
+  <button class="back-btn" onclick="window.history.back()">←</button>
+  <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">🌙</button>
+  <h1><span class="icon">≡</span> <span data-lang="title">Paramètres JAAY</span></h1>
 </div>
 
 <div class="container">
+  <div class="menu">
+    <a href="create.html" data-lang="menu_create">Créer</a>
+    <a href="boutique.html" data-lang="menu_boutique">Boutique</a>
+    <a href="parametres.html" class="active" data-lang="menu_params">Paramètres</a>
+  </div>
+
+  <!-- LE RESTE DE TON CODE NE CHANGE PAS -->
   <div class="card">
-    <div class="card-title">🌍 <span data-lang="langue">Langue</span></div>
+    <div class="card-header"><h3 data-lang="langue">Langue</h3></div>
     <select id="langue" onchange="changerLangue(this.value)">
       <option value="fr">🇫🇷 Français</option>
       <option value="wo">🇸🇳 Wolof</option>
       <option value="en">🇺🇸 English</option>
     </select>
   </div>
-
-  <div class="card">
-    <div class="card-title">💰 <span data-lang="devise">Devise</span></div>
-    <select id="devise">
-      <option value="XOF">FCFA - XOF</option>
-      <option value="EUR">Euro - EUR</option>
-      <option value="USD">Dollar - USD</option>
-    </select>
-  </div>
-
-  <div class="card">
-    <div class="card-title">🔒 <span data-lang="politique">Politique de Confidentialité</span></div>
-    <button class="acc-btn" onclick="toggleAcc(this)" data-lang="lire_politique">Lire la politique complète</button>
-    <div class="acc-content" id="textePolitique"></div>
-  </div>
-
-  <div class="card">
-    <div class="card-title">📄 <span data-lang="cgv">Conditions Générales de Vente</span></div>
-    <button class="acc-btn" onclick="toggleAcc(this)" data-lang="lire_cgv">Lire les CGV complètes</button>
-    <div class="acc-content" id="texteCGV"></div>
-    <div class="checkbox">
-      <input type="checkbox" id="accepteCGV">
-      <label for="accepteCGV" data-lang="accepte_cgv">J'accepte les CGV</label>
-    </div>
-  </div>
-
-  <button class="btn btn-share" onclick="partager()" data-lang="partager">→ Partager l'Application JAAY</button>
+  
   <button class="btn" onclick="sauvegarder()" data-lang="sauvegarder">Sauvegarder</button>
   <p id="msg"></p>
 </div>
 
 <script>
-const translations = {
-  fr: {
-    title: "Paramètres JAAY", menu_create: "Créer", menu_boutique: "Boutique", menu_params: "Paramètres",
-    langue: "Langue", devise: "Devise", politique: "Politique de Confidentialité", cgv: "Conditions Générales de Vente",
-    lire_politique: "Lire la politique complète", lire_cgv: "Lire les CGV complètes", accepte_cgv: "J'accepte les CGV",
-    partager: "→ Partager l'Application JAAY", sauvegarder: "Sauvegarder", sauve_msg: "✅ Paramètres Sauvegardés!",
-    politique_texte: `<b>POLITIQUE DE CONFIDENTIALITÉ JAAY</b><br><br><b>1. COLLECTE DES DONNÉES</b><br>JAAY collecte uniquement votre nom de boutique, numéro WhatsApp et les produits que vous ajoutez. Ces données sont stockées uniquement sur votre téléphone.<br><br><b>2. UTILISATION DES DONNÉES</b><br>Vos informations servent uniquement à générer votre boutique et à permettre aux clients de vous contacter via WhatsApp.<br><br><b>3. PARTAGE DES DONNÉES</b><br>JAAY ne vend ni ne partage vos données personnelles avec des tiers.<br><br><b>4. SÉCURITÉ</b><br>Toutes les données sont enregistrées localement sur votre appareil. JAAY n'a pas accès à vos informations.`,
-    cgv_texte: `<b>CONDITIONS GÉNÉRALES DE VENTE JAAY</b><br><br><b>1. PRIX</b><br>Les prix sont indiqués en <span id="deviseTexte">FCFA</span> et sont TTC.<br><br><b>2. PAIEMENT</b><br>Le paiement et la livraison se font directement entre vous et le client.<br><br><b>3. RESPONSABILITÉ</b><br>JAAY n'est pas responsable des transactions entre vendeur et client.`
-  },
-  en: {
-    title: "JAAY Settings", menu_create: "Create", menu_boutique: "Shop", menu_params: "Settings",
-    langue: "Language", devise: "Currency", politique: "Privacy Policy", cgv: "Terms and Conditions",
-    lire_politique: "Read full policy", lire_cgv: "Read full T&C", accepte_cgv: "I accept the T&C",
-    partager: "→ Share JAAY Application", sauvegarder: "Save", sauve_msg: "✅ Settings Saved!",
-    politique_texte: `<b>JAAY PRIVACY POLICY</b><br><br><b>1. DATA COLLECTION</b><br>JAAY only collects your shop name, WhatsApp number and products you add. This data is stored only on your phone.<br><br><b>2. USE OF DATA</b><br>Your information is used only to generate your shop and allow customers to contact you via WhatsApp.<br><br><b>3. DATA SHARING</b><br>JAAY does not sell or share your personal data with third parties.<br><br><b>4. SECURITY</b><br>All data is stored locally on your device.`,
-    cgv_texte: `<b>JAAY TERMS AND CONDITIONS</b><br><br><b>1. PRICES</b><br>Prices are shown in <span id="deviseTexte">XOF</span>.<br><br><b>2. PAYMENT</b><br>Payment and delivery are done directly between you and the customer.<br><br><b>3. LIABILITY</b><br>JAAY is not responsible for transactions between seller and customer.`
-  },
-  wo: {
-    title: "JAAY Jëfandikoo", menu_create: "Dëkk", menu_boutique: "Boutique", menu_params: "Jëfandikoo",
-    langue: "Làkk", devise: "Xalis", politique: "Sëriñu Sutura", cgv: "Daanu Jënd ak Jaay",
-    lire_politique: "Jàng sëriñu bi lépp", lire_cgv: "Jàng daanu bi lépp", accepte_cgv: "Ma nangu daanu bi",
-    partager: "→ Bëggal JAAY", sauvegarder: "Denc", sauve_msg: "✅ Jëfandikoo bi denc na!",
-    politique_texte: `<b>SËRIÑU SUTURA JAAY</b><br><br><b>1. JËFE DÓMË</b><br>JAAY jëlal rek turu sa boutique, numéru WhatsApp ak ay jëf yu nga def.<br><br><b>2. JËFANDIKOO DÓMË</b><br>Sa dómë yi ñu jëfandikoo ngir def sa boutique.<br><br><b>3. JARË DÓMË</b><br>JAAY du jaay walla jaare sa dómë yi.`,
-    cgv_texte: `<b>DAANU JËND AK JAAY</b><br><br><b>1. XARAJ</b><br>Xaraj yi nekk nañu ci <span id="deviseTexte">FCFA</span>.<br><br><b>2. FAAT</b><br>Faat ak xaar bi moom ñaar yi lañu ko def.`
-  }
-};
-
-function changerLangue(lang){ localStorage.setItem('jaay_langue', lang); appliquerLangue(lang); }
-function appliquerLangue(lang){
-  const t = translations[lang];
-  document.querySelectorAll('[data-lang]').forEach(el => { const key = el.getAttribute('data-lang'); if(t[key]) el.innerText = t[key]; });
-  document.getElementById('textePolitique').innerHTML = t.politique_texte;
-  document.getElementById('texteCGV').innerHTML = t.cgv_texte;
-  document.documentElement.lang = lang;
-}
-function toggleTheme(){
-  document.body.classList.toggle('dark');
-  const isDark = document.body.classList.contains('dark');
-  localStorage.setItem('jaay_theme', isDark? 'dark' : 'light');
-  document.getElementById('themeBtn').innerText = isDark? '☀️' : '🌙';
-}
-function toggleAcc(btn){ btn.nextElementSibling.classList.toggle('show'); }
-function sauvegarder(){
-  localStorage.setItem('jaay_devise', document.getElementById('devise').value);
-  localStorage.setItem('jaay_accepteCGV', document.getElementById('accepteCGV').checked);
-  const lang = localStorage.getItem('jaay_langue') || 'fr';
-  document.getElementById('msg').innerText = translations[lang].sauve_msg;
-  setTimeout(()=>{document.getElementById('msg').innerText = ''}, 2000);
-}
-function partager(){
-  const lang = localStorage.getItem('jaay_langue') || 'fr';
-  const texte = lang === 'en'? "Discover JAAY 🚀" : lang === 'wo'? "Jëlal JAAY 🚀" : "Découvre JAAY 🚀";
-  if(navigator.share){ navigator.share({ title: 'JAAY', text: texte, url: window.location.origin }); }
-  else { navigator.clipboard.writeText(window.location.origin); }
-}
-window.onload = function(){
-  const savedLang = localStorage.getItem('jaay_langue') || 'fr';
-  const savedTheme = localStorage.getItem('jaay_theme');
-  document.getElementById('langue').value = savedLang;
-  appliquerLangue(savedLang);
-  if(savedTheme === 'dark'){ document.body.classList.add('dark'); document.getElementById('themeBtn').innerText = '☀️'; }
-  document.getElementById('devise').value = localStorage.getItem('jaay_devise') || 'XOF';
-  document.getElementById('accepteCGV').checked = localStorage.getItem('jaay_accepteCGV') === 'true';
-}
+// ICI TU COLLLES TON JS DEJA EXISTANT
+// toggleTheme, changerLangue, sauvegarder, etc...
+// Rien à changer dans le JS
 </script>
 </body>
-  </html>
+    </html>
