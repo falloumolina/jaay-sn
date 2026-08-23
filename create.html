@@ -21,11 +21,13 @@
     }
     *{ transition: background 0.3s, color 0.3s, border 0.3s; box-sizing: border-box; }
     body { background: var(--bg); font-family: Arial; padding: 20px; color: var(--text); margin: 0; }
-    .container { max-width: 600px; margin: 0 auto; background: var(--card); padding: 30px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); border: 1px solid var(--border); }
-    h1 { color: var(--orange); text-align: center; margin-bottom: 15px; }
-    .menu { display: flex; gap: 10px; margin-bottom: 25px; justify-content: center; }
-    .menu a { text-decoration: none; color: var(--vert); font-weight: bold; padding: 8px 15px; border: 2px solid var(--vert); border-radius: 8px; font-size: 14px; }
-    .menu a.active { background: var(--vert); color: white; }
+   .container { max-width: 600px; margin: 0 auto; background: var(--card); padding: 30px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); border: 1px solid var(--border); }
+   .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+    h1 { color: var(--orange); text-align: center; margin: 0; flex:1; }
+   .lang-select { padding: 8px; border-radius: 8px; border: 2px solid var(--border); background: var(--bg); color: var(--text); font-weight: bold; }
+   .menu { display: flex; gap: 10px; margin-bottom: 25px; justify-content: center; }
+   .menu a { text-decoration: none; color: var(--vert); font-weight: bold; padding: 8px 15px; border: 2px solid var(--vert); border-radius: 8px; font-size: 14px; }
+   .menu a.active { background: var(--vert); color: white; }
     label { font-weight: bold; margin-top: 10px; display: block; }
     input { width: 100%; padding: 12px; margin: 5px 0 15px 0; border: 2px solid var(--border); border-radius: 8px; font-size: 16px; box-sizing: border-box; background: var(--bg); color: var(--text); }
     input::placeholder { color: #999; }
@@ -38,91 +40,82 @@
 </head>
 <body>
   <div class="container">
-    
-    <div style="display: flex; align-items: center; gap: 10px; justify-content: center; margin-bottom: 15px;">
+
+    <div class="top-bar">
       <button onclick="window.history.back()" style="background: var(--orange); color: white; border: none; border-radius: 50%; width: 40px; height: 40px; font-size: 20px; cursor: pointer; font-weight: bold;">←</button>
-      <h1 style="margin: 0;" data-fr="Créer ma boutique JAAY" data-en="Create my JAAY Shop">Créer ma boutique JAAY</h1>
+      <select id="langue" class="lang-select" onchange="changerLangue(this.value)">
+        <option value="fr">Français</option>
+        <option value="en">English</option>
+        <option value="wo">Wolof</option>
+      </select>
     </div>
 
+    <h1 data-fr="Créer ma boutique JAAY" data-en="Create my JAAY Shop" data-wo="Défaral Sama Boutique JAAY">Créer ma boutique JAAY</h1>
+
     <div class="menu">
-      <a href="create.html" class="active" data-fr="Créer" data-en="Create">Créer</a>
-      <a href="boutique.html" data-fr="Boutique" data-en="Shop">Boutique</a>
-      <a href="parametres.html" data-fr="Paramètres" data-en="Settings">Paramètres</a>
+      <a href="create.html" class="active" data-fr="Créer" data-en="Create" data-wo="Défaral">Créer</a>
+      <a href="boutique.html" data-fr="Boutique" data-en="Shop" data-wo="Boutique">Boutique</a>
+      <a href="parametres.html" data-fr="Paramètres" data-en="Settings" data-wo="Paramètre yi">Paramètres</a>
     </div>
 
     <form id="boutiqueForm">
-      <label data-fr="Nom de ta boutique" data-en="Shop Name">Nom de ta boutique</label>
+      <label data-fr="Nom de ta boutique" data-en="Shop Name" data-wo="Turul sa Boutique">Nom de ta boutique</label>
       <input type="text" id="nom" placeholder="Ex: Mode Fatou" required>
 
-      <label data-fr="Numéro WhatsApp avec indicatif" data-en="WhatsApp Number with country code">Numéro WhatsApp avec indicatif</label>
+      <label data-fr="Numéro WhatsApp avec indicatif" data-en="WhatsApp Number with country code" data-wo="Numéro WhatsApp ak indicatif">Numéro WhatsApp avec indicatif</label>
       <input type="tel" id="whatsapp" placeholder="Ex: 221771234567" required>
 
-      <label data-fr="Produit 1" data-en="Product 1">Produit 1</label>
+      <label data-fr="Produit 1" data-en="Product 1" data-wo="Jëfandikoo 1">Produit 1</label>
       <input type="text" id="p1" placeholder="Ex: Robe Wax - 15000 FCFA">
 
-      <label data-fr="Produit 2" data-en="Product 2">Produit 2</label>
-      <input type="text" id="p2" placeholder="Ex: Shoes - 10000 FCFA">
+      <label data-fr="Produit 2" data-en="Product 2" data-wo="Jëfandikoo 2">Produit 2</label>
+      <input type="text" id="p2" placeholder="Ex: Chaussures - 10000 FCFA">
 
-      <label data-fr="Produit 3" data-en="Product 3">Produit 3</label>
-      <input type="text" id="p3" placeholder="Ex: Bag - 8000 FCFA">
+      <label data-fr="Produit 3" data-en="Product 3" data-wo="Jëfandikoo 3">Produit 3</label>
+      <input type="text" id="p3" placeholder="Ex: Sac - 8000 FCFA">
 
-      <button type="submit" data-fr="Générer ma boutique" data-en="Generate my Shop">Générer ma boutique</button>
+      <button type="submit" data-fr="Générer ma boutique" data-en="Generate my Shop" data-wo="Défal Sama Boutique">Générer ma boutique</button>
     </form>
     <div id="result"></div>
   </div>
 
   <script>
-    // FONCTION POUR DETECTER LA LANGUE
-    function detectLang(text) {
-      if(!text) return 'fr';
-      const frWords = ['de', 'la', 'le', 'et', 'à', 'robe', 'chaussure', 'sac', 'franc', 'fcfa'];
-      const enWords = ['the', 'and', 'shoes', 'bag', 'dress', 'dollar', 'usd'];
-      text = text.toLowerCase();
-      if(enWords.some(word => text.includes(word))) return 'en';
-      if(frWords.some(word => text.includes(word))) return 'fr';
-      return 'fr'; // par défaut français
-    }
-
     function setLanguage(lang) {
       document.documentElement.lang = lang;
+      document.getElementById('langue').value = lang;
+      localStorage.setItem('jaay_lang', lang);
+
       document.querySelectorAll('[data-fr]').forEach(el => {
         el.innerText = el.getAttribute('data-' + lang);
       });
-      // Changer aussi les placeholders
-      if(lang === 'en'){
-        document.getElementById('nom').placeholder = "Ex: Fatou Fashion";
-        document.getElementById('whatsapp').placeholder = "Ex: 221771234567";
-        document.getElementById('p1').placeholder = "Ex: Wax Dress - 15000 FCFA";
-        document.getElementById('p2').placeholder = "Ex: Shoes - 10000 FCFA";
-        document.getElementById('p3').placeholder = "Ex: Bag - 8000 FCFA";
-      } else {
-        document.getElementById('nom').placeholder = "Ex: Mode Fatou";
-        document.getElementById('whatsapp').placeholder = "Ex: 221771234567";
-        document.getElementById('p1').placeholder = "Ex: Robe Wax - 15000 FCFA";
-        document.getElementById('p2').placeholder = "Ex: Chaussures - 10000 FCFA";
-        document.getElementById('p3').placeholder = "Ex: Sac - 8000 FCFA";
-      }
+
+      const placeholders = {
+        fr: ["Ex: Mode Fatou", "Ex: 221771234567", "Ex: Robe Wax - 15000 FCFA", "Ex: Chaussures - 10000 FCFA", "Ex: Sac - 8000 FCFA"],
+        en: ["Ex: Fatou Fashion", "Ex: 221771234567", "Ex: Wax Dress - 15000 FCFA", "Ex: Shoes - 10000 FCFA", "Ex: Bag - 8000 FCFA"],
+        wo: ["Ex: Mode Fatou", "Ex: 221771234567", "Ex: Robe Wax - 15000 FCFA", "Ex: Der yi - 10000 FCFA", "Ex: Sac - 8000 FCFA"]
+      };
+      document.getElementById('nom').placeholder = placeholders[lang][0];
+      document.getElementById('whatsapp').placeholder = placeholders[lang][1];
+      document.getElementById('p1').placeholder = placeholders[lang][2];
+      document.getElementById('p2').placeholder = placeholders[lang][3];
+      document.getElementById('p3').placeholder = placeholders[lang][4];
     }
 
-    // CHARGER LE THEME AU DEMARRAGE
+    function changerLangue(lang){
+      setLanguage(lang);
+    }
+
+    // CHARGER LE THEME ET LA LANGUE AU DEMARRAGE
     window.addEventListener('DOMContentLoaded', () => {
       const savedTheme = localStorage.getItem('jaay_theme');
-      if(savedTheme === 'dark'){
-        document.body.classList.add('dark');
-      }
+      if(savedTheme === 'dark'){ document.body.classList.add('dark'); }
+
       const savedLang = localStorage.getItem('jaay_lang') || 'fr';
       setLanguage(savedLang);
     });
 
     document.getElementById('nom').value = localStorage.getItem('nomBoutique') || '';
     document.getElementById('whatsapp').value = localStorage.getItem('numeroWhatsapp') || '';
-
-    // Detecter la langue quand il tape
-    document.getElementById('nom').addEventListener('input', (e) => {
-      const lang = detectLang(e.target.value);
-      setLanguage(lang);
-      localStorage.setItem('jaay_lang', lang);
-    });
 
     document.getElementById('boutiqueForm').addEventListener('submit', function(e) {
       e.preventDefault();
@@ -138,13 +131,16 @@
       const lien = `boutique.html?nom=${encodeURIComponent(nom)}&w=${whatsapp}&p1=${encodeURIComponent(p1)}&p2=${encodeURIComponent(p2)}&p3=${encodeURIComponent(p3)}`;
 
       const lang = localStorage.getItem('jaay_lang') || 'fr';
-      const msgSuccess = lang === 'en' ? '✅ Your shop is ready!' : '✅ Ta boutique est prête!';
-      const msgVoir = lang === 'en' ? '👉 View my shop' : '👉 Voir ma boutique';
+      const msg = {
+        fr: {ok: '✅ Ta boutique est prête!', voir: '👉 Voir ma boutique'},
+        en: {ok: '✅ Your shop is ready!', voir: '👉 View my shop'},
+        wo: {ok: '✅ Sa Boutique bi dafa ready!', voir: '👉 Gisal Sama Boutique'}
+      };
 
       document.getElementById('result').innerHTML =
-        `<p>${msgSuccess}</p>
-         <a href="${lien}" target="_blank">${msgVoir}</a>`;
+        `<p>${msg[lang].ok}</p>
+         <a href="${lien}" target="_blank">${msg[lang].voir}</a>`;
     });
   </script>
 </body>
-  </html>
+        </html>
