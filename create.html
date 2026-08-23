@@ -32,10 +32,8 @@
     body.dark input::placeholder { color: #777; }
     button { width: 100%; padding: 15px; background: var(--vert); color: white; border: none; border-radius: 8px; font-size: 18px; cursor: pointer; font-weight: bold; }
     button:hover { background: #219A52; }
-    #result { margin-top:20px; text-align: center; display:none; }
-    #monLien { width:100%; padding:12px; text-align:center; border:2px solid var(--vert); border-radius:8px; margin:10px 0; background: var(--bg); color: var(--text); font-size: 14px; }
-    .btn-copier { background:var(--orange); margin-bottom: 10px; }
-    .btn-voir { background:var(--vert); text-decoration: none; display:block; padding:15px; border-radius:8px; color:white; font-weight:bold; font-size: 18px;}
+    #result { margin-top:20px; text-align: center; }
+    #result a { color:var(--vert); font-weight: bold; font-size: 18px; }
   </style>
 </head>
 <body>
@@ -43,53 +41,88 @@
     
     <div style="display: flex; align-items: center; gap: 10px; justify-content: center; margin-bottom: 15px;">
       <button onclick="window.history.back()" style="background: var(--orange); color: white; border: none; border-radius: 50%; width: 40px; height: 40px; font-size: 20px; cursor: pointer; font-weight: bold;">←</button>
-      <h1 style="margin: 0;">Créer ma boutique JAAY</h1>
+      <h1 style="margin: 0;" data-fr="Créer ma boutique JAAY" data-en="Create my JAAY Shop">Créer ma boutique JAAY</h1>
     </div>
 
     <div class="menu">
-      <a href="create.html" class="active">Créer</a>
-      <a href="boutique.html">Boutique</a>
-      <a href="parametres.html">Paramètres</a>
+      <a href="create.html" class="active" data-fr="Créer" data-en="Create">Créer</a>
+      <a href="boutique.html" data-fr="Boutique" data-en="Shop">Boutique</a>
+      <a href="parametres.html" data-fr="Paramètres" data-en="Settings">Paramètres</a>
     </div>
 
     <form id="boutiqueForm">
-      <label>Nom de ta boutique</label>
+      <label data-fr="Nom de ta boutique" data-en="Shop Name">Nom de ta boutique</label>
       <input type="text" id="nom" placeholder="Ex: Mode Fatou" required>
 
-      <label>Numéro WhatsApp avec indicatif</label>
+      <label data-fr="Numéro WhatsApp avec indicatif" data-en="WhatsApp Number with country code">Numéro WhatsApp avec indicatif</label>
       <input type="tel" id="whatsapp" placeholder="Ex: 221771234567" required>
 
-      <label>Produit 1</label>
+      <label data-fr="Produit 1" data-en="Product 1">Produit 1</label>
       <input type="text" id="p1" placeholder="Ex: Robe Wax - 15000 FCFA">
 
-      <label>Produit 2</label>
-      <input type="text" id="p2" placeholder="Ex: Chaussures - 10000 FCFA">
+      <label data-fr="Produit 2" data-en="Product 2">Produit 2</label>
+      <input type="text" id="p2" placeholder="Ex: Shoes - 10000 FCFA">
 
-      <label>Produit 3</label>
-      <input type="text" id="p3" placeholder="Ex: Sac - 8000 FCFA">
+      <label data-fr="Produit 3" data-en="Product 3">Produit 3</label>
+      <input type="text" id="p3" placeholder="Ex: Bag - 8000 FCFA">
 
-      <button type="submit">Générer ma boutique</button>
+      <button type="submit" data-fr="Générer ma boutique" data-en="Generate my Shop">Générer ma boutique</button>
     </form>
-
-    <div id="result">
-      <p>✅ Ta boutique est prête! Partage ce lien :</p>
-      <input type="text" id="monLien" readonly>
-      <button class="btn-copier" onclick="copierLien()">📋 Copier mon lien JAAY</button>
-      <a id="voirBoutique" target="_blank" class="btn-voir">👉 Voir ma boutique</a>
-    </div>
+    <div id="result"></div>
   </div>
 
   <script>
+    // FONCTION POUR DETECTER LA LANGUE
+    function detectLang(text) {
+      if(!text) return 'fr';
+      const frWords = ['de', 'la', 'le', 'et', 'à', 'robe', 'chaussure', 'sac', 'franc', 'fcfa'];
+      const enWords = ['the', 'and', 'shoes', 'bag', 'dress', 'dollar', 'usd'];
+      text = text.toLowerCase();
+      if(enWords.some(word => text.includes(word))) return 'en';
+      if(frWords.some(word => text.includes(word))) return 'fr';
+      return 'fr'; // par défaut français
+    }
+
+    function setLanguage(lang) {
+      document.documentElement.lang = lang;
+      document.querySelectorAll('[data-fr]').forEach(el => {
+        el.innerText = el.getAttribute('data-' + lang);
+      });
+      // Changer aussi les placeholders
+      if(lang === 'en'){
+        document.getElementById('nom').placeholder = "Ex: Fatou Fashion";
+        document.getElementById('whatsapp').placeholder = "Ex: 221771234567";
+        document.getElementById('p1').placeholder = "Ex: Wax Dress - 15000 FCFA";
+        document.getElementById('p2').placeholder = "Ex: Shoes - 10000 FCFA";
+        document.getElementById('p3').placeholder = "Ex: Bag - 8000 FCFA";
+      } else {
+        document.getElementById('nom').placeholder = "Ex: Mode Fatou";
+        document.getElementById('whatsapp').placeholder = "Ex: 221771234567";
+        document.getElementById('p1').placeholder = "Ex: Robe Wax - 15000 FCFA";
+        document.getElementById('p2').placeholder = "Ex: Chaussures - 10000 FCFA";
+        document.getElementById('p3').placeholder = "Ex: Sac - 8000 FCFA";
+      }
+    }
+
     // CHARGER LE THEME AU DEMARRAGE
     window.addEventListener('DOMContentLoaded', () => {
       const savedTheme = localStorage.getItem('jaay_theme');
       if(savedTheme === 'dark'){
         document.body.classList.add('dark');
       }
+      const savedLang = localStorage.getItem('jaay_lang') || 'fr';
+      setLanguage(savedLang);
     });
 
     document.getElementById('nom').value = localStorage.getItem('nomBoutique') || '';
     document.getElementById('whatsapp').value = localStorage.getItem('numeroWhatsapp') || '';
+
+    // Detecter la langue quand il tape
+    document.getElementById('nom').addEventListener('input', (e) => {
+      const lang = detectLang(e.target.value);
+      setLanguage(lang);
+      localStorage.setItem('jaay_lang', lang);
+    });
 
     document.getElementById('boutiqueForm').addEventListener('submit', function(e) {
       e.preventDefault();
@@ -104,17 +137,14 @@
 
       const lien = `boutique.html?nom=${encodeURIComponent(nom)}&w=${whatsapp}&p1=${encodeURIComponent(p1)}&p2=${encodeURIComponent(p2)}&p3=${encodeURIComponent(p3)}`;
 
-      document.getElementById('monLien').value = window.location.origin + '/' + lien;
-      document.getElementById('voirBoutique').href = lien;
-      document.getElementById('result').style.display = 'block';
-    });
+      const lang = localStorage.getItem('jaay_lang') || 'fr';
+      const msgSuccess = lang === 'en' ? '✅ Your shop is ready!' : '✅ Ta boutique est prête!';
+      const msgVoir = lang === 'en' ? '👉 View my shop' : '👉 Voir ma boutique';
 
-    function copierLien(){
-      const lienInput = document.getElementById('monLien');
-      lienInput.select();
-      document.execCommand('copy');
-      alert('Lien copié ! Colle-le sur WhatsApp pour recevoir tes commandes');
-    }
+      document.getElementById('result').innerHTML =
+        `<p>${msgSuccess}</p>
+         <a href="${lien}" target="_blank">${msgVoir}</a>`;
+    });
   </script>
 </body>
-        </html>
+  </html>
