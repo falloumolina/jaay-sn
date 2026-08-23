@@ -6,12 +6,13 @@
   <title id="title">Ma Boutique - JAAY</title>
   <style>
     body { background: #FFF8E1; font-family: Arial; margin: 0; }
-    .header { background: #E67E22; color: white; padding: 30px 20px; text-align: center; }
-    .header h1 { margin: 0; font-size: 28px; }
-    .container { max-width: 600px; margin: 20px auto; padding: 20px; }
-    .produit { background: white; padding: 15px; margin: 10px 0; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-    .whatsapp-btn { display: block; background: #25D366; color: white; text-align: center; padding: 15px; 
-                    border-radius: 10px; text-decoration: none; font-size: 18px; margin-top: 20px; }
+   .header { background: #E67E22; color: white; padding: 30px 20px; text-align: center; }
+   .header h1 { margin: 0; font-size: 28px; }
+   .container { max-width: 600px; margin: 20px auto; padding: 20px; }
+   .produit { background: white; padding: 15px; margin: 10px 0; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); font-size: 16px; }
+   .whatsapp-btn { display: block; background: #25D366; color: white; text-align: center; padding: 15px;
+                    border-radius: 10px; text-decoration: none; font-size: 18px; margin-top: 20px; font-weight: bold; }
+   .footer { text-align: center; padding: 20px; font-size: 12px; color: #777; }
   </style>
 </head>
 <body>
@@ -21,25 +22,34 @@
   </div>
 
   <div class="container">
-    <div class="produit">1. Robe Wax - 15 000 FCFA</div>
-    <div class="produit">2. Chaussures - 10 000 FCFA</div>
-    <div class="produit">3. Sac - 8 000 FCFA</div>
+    <div class="produit">1. Produit 1</div>
+    <div class="produit">2. Produit 2</div>
+    <div class="produit">3. Produit 3</div>
 
     <a id="whatsappLink" class="whatsapp-btn" target="_blank">
       📱 Commander sur WhatsApp
     </a>
   </div>
 
+  <div class="footer">Boutique créée avec JAAY.sn</div>
+
   <script>
     const urlParams = new URLSearchParams(window.location.search);
     const nom = urlParams.get('nom') || 'Ma Boutique';
+    const whatsapp = urlParams.get('w') || '221771234567';
+    const p1 = urlParams.get('p1') || 'Produit 1';
+    const p2 = urlParams.get('p2') || 'Produit 2';
+    const p3 = urlParams.get('p3') || 'Produit 3';
+
     document.getElementById('nomBoutique').innerText = nom;
     document.getElementById('title').innerText = nom + ' - JAAY';
-    
-    // Ici on mettra le vrai numéro après
-    const numero = '221771234567'; 
-    const message = `Salut, je veux commander sur ${nom}`;
-    document.getElementById('whatsappLink').href = `https://wa.me/${numero}?text=${encodeURIComponent(message)}`;
+
+    document.querySelectorAll('.produit')[0].innerText = '1. ' + p1;
+    document.querySelectorAll('.produit')[1].innerText = '2. ' + p2;
+    document.querySelectorAll('.produit')[2].innerText = '3. ' + p3;
+
+    const message = `Salut, je veux commander sur ${nom} via JAAY`;
+    document.getElementById('whatsappLink').href = `https://wa.me/${whatsapp}?text=${encodeURIComponent(message)}`;
   </script>
 </body>
   </html>
