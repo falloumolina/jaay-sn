@@ -38,7 +38,11 @@
 </head>
 <body>
   <div class="container">
-    <h1>Créer ma boutique JAAY</h1>
+    
+    <div style="display: flex; align-items: center; gap: 10px; justify-content: center; margin-bottom: 15px;">
+      <button onclick="window.history.back()" style="background: var(--orange); color: white; border: none; border-radius: 50%; width: 40px; height: 40px; font-size: 20px; cursor: pointer; font-weight: bold;">←</button>
+      <h1 style="margin: 0;">Créer ma boutique JAAY</h1>
+    </div>
 
     <div class="menu">
       <a href="create.html" class="active">Créer</a>
@@ -76,7 +80,6 @@
       }
     });
 
-    // Pré-remplir avec les paramètres sauvegardés
     document.getElementById('nom').value = localStorage.getItem('nomBoutique') || '';
     document.getElementById('whatsapp').value = localStorage.getItem('numeroWhatsapp') || '';
 
@@ -88,7 +91,6 @@
       const p2 = document.getElementById('p2').value;
       const p3 = document.getElementById('p3').value;
 
-      // Sauvegarder aussi dans les paramètres
       localStorage.setItem('nomBoutique', nom);
       localStorage.setItem('numeroWhatsapp', whatsapp);
 
@@ -100,4 +102,4 @@
     });
   </script>
 </body>
-  </html>
+      </html>
