@@ -19,19 +19,17 @@
     }
     *{ transition: background 0.3s, color 0.3s; }
     body { background: var(--bg); font-family: Arial; margin: 0; color: var(--text); }
-   .header { background: var(--orange); color: white; padding: 30px 20px; text-align: center; }
+   .header { background: var(--orange); color: white; padding: 30px 20px; text-align: center; position: relative; }
    .header h1 { margin: 0; font-size: 28px; }
+   .back-btn { position: absolute; top: 15px; left: 15px; background: rgba(255,255,255,0.2); border: none; color: white; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; font-size: 22px; font-weight: bold; }
    .container { max-width: 600px; margin: 20px auto; padding: 20px; }
-   .produit { background: var(--card); padding: 15px; margin: 10px 0; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); font-size: 16px; border: 1px solid #eee; }
-    body.dark.produit { border-color: #333; }
-   .whatsapp-btn { display: block; background: var(--vert); color: white; text-align: center; padding: 15px;
-                    border-radius: 10px; text-decoration: none; font-size: 18px; margin-top: 20px; font-weight: bold; }
-   .footer { text-align: center; padding: 20px; font-size: 12px; color: #777; }
-    body.dark.footer { color: #AAA; }
+   .produit { background: var(--card); padding: 15px; margin: 10px 0; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+   .whatsapp-btn { display: block; background: var(--vert); color: white; text-align: center; padding: 15px; border-radius: 10px; text-decoration: none; font-size: 18px; margin-top: 20px; font-weight: bold; }
   </style>
 </head>
 <body>
   <div class="header">
+    <button class="back-btn" onclick="window.history.back()">←</button>
     <h1 id="nomBoutique">Ma Boutique</h1>
     <p>Commandez directement sur WhatsApp</p>
   </div>
@@ -40,40 +38,21 @@
     <div class="produit">1. Produit 1</div>
     <div class="produit">2. Produit 2</div>
     <div class="produit">3. Produit 3</div>
-
-    <a id="whatsappLink" class="whatsapp-btn" target="_blank">
-      📱 Commander sur WhatsApp
-    </a>
+    <a id="whatsappLink" class="whatsapp-btn" target="_blank">📱 Commander sur WhatsApp</a>
   </div>
 
-  <div class="footer">Boutique créée avec JAAY.sn</div>
-
   <script>
-    // CHARGER LE THEME AU DEMARRAGE
+    // CHARGER LE THEME
     window.addEventListener('DOMContentLoaded', () => {
       const savedTheme = localStorage.getItem('jaay_theme');
-      if(savedTheme === 'dark'){
-        document.body.classList.add('dark');
-      }
+      if(savedTheme === 'dark'){ document.body.classList.add('dark'); }
     });
 
     const urlParams = new URLSearchParams(window.location.search);
     const nom = urlParams.get('nom') || 'Ma Boutique';
     const whatsapp = urlParams.get('w') || '221771234567';
-    const p1 = urlParams.get('p1') || '';
-    const p2 = urlParams.get('p2') || '';
-    const p3 = urlParams.get('p3') || '';
-
     document.getElementById('nomBoutique').innerText = nom;
-    document.getElementById('title').innerText = nom + ' - JAAY';
-
-    if(p1) document.querySelectorAll('.produit')[0].innerText = '1. ' + p1;
-    if(p2) document.querySelectorAll('.produit')[1].innerText = '2. ' + p2;
-    if(p3) document.querySelectorAll('.produit')[2].innerText = '3. ' + p3;
-
-    const produits = [p1, p2, p3].filter(p => p!== '').join('\n');
-    const message = `Salut ${nom}, je veux commander :\n${produits}\n\nOn discute du paiement et livraison ensemble.\n\nvia JAAY`;
-    document.getElementById('whatsappLink').href = `https://wa.me/${whatsapp}?text=${encodeURIComponent(message)}`;
+    document.getElementById('whatsappLink').href = `https://wa.me/${whatsapp}`;
   </script>
 </body>
   </html>
