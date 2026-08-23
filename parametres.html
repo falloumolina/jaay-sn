@@ -14,11 +14,13 @@ h1 { color: #E67E22; text-align: center; margin-bottom: 15px; font-size: 24px; }
 .section { background: #FFF8E1; padding: 15px; border-radius: 10px; margin-bottom: 15px; }
 .section h3 { margin-top: 0; color: #E67E22; font-size: 16px; }
 label { display: block; margin: 10px 0 5px; font-weight: bold; font-size: 14px; }
-input[type="text"], textarea, select { width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 8px; box-sizing: border-box; font-size: 16px; }
+select, textarea { width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 8px; box-sizing: border-box; font-size: 16px; }
 textarea { height: 100px; resize: vertical; }
-.checkbox-group label { font-weight: normal; display: flex; align-items: center; gap: 8px; margin: 8px 0; }
+.checkbox { display: flex; align-items: center; gap: 10px; }
 button { background: #27AE60; color: white; border: none; padding: 15px; border-radius: 8px; font-size: 18px; cursor: pointer; width: 100%; margin-top: 10px; font-weight: bold; }
 button:hover { background: #219A52; }
+.share-btn { background: #E67E22; }
+.share-btn:hover { background: #D35400; }
 .icon { font-size: 28px; vertical-align: middle; }
 small { color: #666; font-size: 12px; }
 </style>
@@ -34,28 +36,8 @@ small { color: #666; font-size: 12px; }
   </div>
 
   <div class="section">
-    <h3>Logo / Bannière Boutique</h3>
-    <label>Lien de votre Logo</label>
-    <input type="text" id="logo" placeholder="https://exemple.com/logo.jpg">
-  </div>
-
-  <div class="section">
-    <h3>Méthodes de Paiement</h3>
-    <div class="checkbox-group">
-      <label><input type="checkbox" id="payWave"> Wave</label>
-      <label><input type="checkbox" id="payOM"> Orange Money</label>
-      <label><input type="checkbox" id="payCash"> Paiement à la livraison</label>
-    </div>
-  </div>
-
-  <div class="section">
-    <h3>Message Auto WhatsApp</h3>
-    <label>Message envoyé au client</label>
-    <textarea id="msgAuto"></textarea>
-  </div>
-
-  <div class="section">
-    <h3>Langue de l'application</h3>
+    <h3>1. Langue</h3>
+    <label>Langue d'affichage</label>
     <select id="langue">
       <option value="fr">Français</option>
       <option value="wo">Wolof</option>
@@ -64,69 +46,73 @@ small { color: #666; font-size: 12px; }
   </div>
 
   <div class="section">
-    <h3>À propos de JAAY</h3>
-    <textarea id="aPropos" placeholder="Décrivez votre boutique"></textarea>
+    <h3>2. Devise</h3>
+    <label>Devise de vente</label>
+    <select id="devise">
+      <option value="XOF">FCFA - XOF</option>
+      <option value="EUR">Euro - EUR</option>
+      <option value="USD">Dollar - USD</option>
+    </select>
   </div>
 
   <div class="section">
-    <h3>Commentaires Clients</h3>
-    <input type="text" id="lienCommentaire" placeholder="Lien WhatsApp ou Google Form">
+    <h3>3. Politique de Confidentialité</h3>
+    <textarea id="politique" readonly></textarea>
   </div>
 
   <div class="section">
-    <h3>Politique de Confidentialité</h3>
-    <label>Texte de votre politique</label>
-    <textarea id="politique"></textarea>
-    <small>Laissez vide pour utiliser le texte par défaut de JAAY</small>
+    <h3>4. Conditions Générales de Vente</h3>
+    <textarea id="cgv" readonly></textarea>
+    <div class="checkbox">
+      <input type="checkbox" id="accepteCGV">
+      <label for="accepteCGV">J'accepte les CGV</label>
+    </div>
   </div>
 
+  <button class="share-btn" onclick="partager()">→ Partager l'Application JAAY</button>
   <button onclick="sauvegarder()">Sauvegarder</button>
   <p id="msg" style="text-align:center; color:green; margin-top:10px; font-weight:bold;"></p>
 </div>
 
 <script>
 const politiqueDefaut = `POLITIQUE DE CONFIDENTIALITÉ JAAY
+1. Vos données sont stockées uniquement sur votre téléphone.
+2. JAAY n'accède pas et ne vend pas vos informations.
+3. Vos clients vous contactent directement via WhatsApp.`;
 
-1. COLLECTE DES DONNÉES
-JAAY collecte uniquement votre nom de boutique, numéro WhatsApp et les produits que vous ajoutez. Ces données sont stockées uniquement sur votre téléphone.
-
-2. UTILISATION DES DONNÉES  
-Vos informations servent uniquement à générer votre boutique et à permettre aux clients de vous contacter via WhatsApp.
-
-3. PARTAGE DES DONNÉES
-JAAY ne vend ni ne partage vos données personnelles avec des tiers. Vos informations restent privées.
-
-4. SÉCURITÉ
-Toutes les données sont enregistrées localement sur votre appareil. JAAY n'a pas accès à vos informations.
-
-5. CONTACT
-Pour toute question: contact@jaay.sn`;
+const cgvDefaut = `CONDITIONS GÉNÉRALES DE VENTE JAAY
+1. Les prix sont en ${document.getElementById('devise')?.value || 'XOF'} et TTC.
+2. Le paiement se fait selon la méthode choisie: Wave, OM ou Cash.
+3. La livraison est à la charge du client sauf accord.
+4. Les retours sont possibles sous 48h si le produit est défectueux.`;
 
 function sauvegarder(){
-  localStorage.setItem('jaay_logo', document.getElementById('logo').value);
-  localStorage.setItem('jaay_payWave', document.getElementById('payWave').checked);
-  localStorage.setItem('jaay_payOM', document.getElementById('payOM').checked);
-  localStorage.setItem('jaay_payCash', document.getElementById('payCash').checked);
-  localStorage.setItem('jaay_msgAuto', document.getElementById('msgAuto').value);
   localStorage.setItem('jaay_langue', document.getElementById('langue').value);
-  localStorage.setItem('jaay_aPropos', document.getElementById('aPropos').value);
-  localStorage.setItem('jaay_commentaire', document.getElementById('lienCommentaire').value);
-  localStorage.setItem('jaay_politique', document.getElementById('politique').value || politiqueDefaut);
+  localStorage.setItem('jaay_devise', document.getElementById('devise').value);
+  localStorage.setItem('jaay_politique', document.getElementById('politique').value);
+  localStorage.setItem('jaay_cgv', document.getElementById('cgv').value);
+  localStorage.setItem('jaay_accepteCGV', document.getElementById('accepteCGV').checked);
   
   document.getElementById('msg').innerText = '✅ Paramètres Sauvegardés !';
   setTimeout(()=>{document.getElementById('msg').innerText = ''}, 2000);
 }
 
+function partager(){
+  const texte = "Découvre JAAY 🚀 Crée ta boutique WhatsApp en 2 minutes !";
+  if(navigator.share){
+    navigator.share({ title: 'JAAY', text: texte, url: window.location.origin });
+  } else {
+    navigator.clipboard.writeText(window.location.origin);
+    alert('Lien copié ! Partage-le sur WhatsApp');
+  }
+}
+
 // Charger les valeurs
-document.getElementById('logo').value = localStorage.getItem('jaay_logo') || '';
-document.getElementById('payWave').checked = localStorage.getItem('jaay_payWave') === 'true';
-document.getElementById('payOM').checked = localStorage.getItem('jaay_payOM') === 'true';
-document.getElementById('payCash').checked = localStorage.getItem('jaay_payCash') === 'true';
-document.getElementById('msgAuto').value = localStorage.getItem('jaay_msgAuto') || 'Bonjour, merci pour votre commande de {produit}. Total: {prix} FCFA';
 document.getElementById('langue').value = localStorage.getItem('jaay_langue') || 'fr';
-document.getElementById('aPropos').value = localStorage.getItem('jaay_aPropos') || '';
-document.getElementById('lienCommentaire').value = localStorage.getItem('jaay_commentaire') || '';
+document.getElementById('devise').value = localStorage.getItem('jaay_devise') || 'XOF';
 document.getElementById('politique').value = localStorage.getItem('jaay_politique') || politiqueDefaut;
+document.getElementById('cgv').value = localStorage.getItem('jaay_cgv') || cgvDefaut;
+document.getElementById('accepteCGV').checked = localStorage.getItem('jaay_accepteCGV') === 'true';
 </script>
 </body>
   </html>
