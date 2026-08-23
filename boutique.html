@@ -6,13 +6,13 @@
   <title id="title">Ma Boutique - JAAY</title>
   <style>
     body { background: #FFF8E1; font-family: Arial; margin: 0; }
-   .header { background: #E67E22; color: white; padding: 30px 20px; text-align: center; }
-   .header h1 { margin: 0; font-size: 28px; }
-   .container { max-width: 600px; margin: 20px auto; padding: 20px; }
-   .produit { background: white; padding: 15px; margin: 10px 0; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); font-size: 16px; }
-   .whatsapp-btn { display: block; background: #25D366; color: white; text-align: center; padding: 15px;
+  .header { background: #E67E22; color: white; padding: 30px 20px; text-align: center; }
+  .header h1 { margin: 0; font-size: 28px; }
+  .container { max-width: 600px; margin: 20px auto; padding: 20px; }
+  .produit { background: white; padding: 15px; margin: 10px 0; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); font-size: 16px; }
+  .whatsapp-btn { display: block; background: #25D366; color: white; text-align: center; padding: 15px;
                     border-radius: 10px; text-decoration: none; font-size: 18px; margin-top: 20px; font-weight: bold; }
-   .footer { text-align: center; padding: 20px; font-size: 12px; color: #777; }
+  .footer { text-align: center; padding: 20px; font-size: 12px; color: #777; }
   </style>
 </head>
 <body>
@@ -37,18 +37,19 @@
     const urlParams = new URLSearchParams(window.location.search);
     const nom = urlParams.get('nom') || 'Ma Boutique';
     const whatsapp = urlParams.get('w') || '221771234567';
-    const p1 = urlParams.get('p1') || 'Produit 1';
-    const p2 = urlParams.get('p2') || 'Produit 2';
-    const p3 = urlParams.get('p3') || 'Produit 3';
+    const p1 = urlParams.get('p1') || '';
+    const p2 = urlParams.get('p2') || '';
+    const p3 = urlParams.get('p3') || '';
 
     document.getElementById('nomBoutique').innerText = nom;
     document.getElementById('title').innerText = nom + ' - JAAY';
 
-    document.querySelectorAll('.produit')[0].innerText = '1. ' + p1;
-    document.querySelectorAll('.produit')[1].innerText = '2. ' + p2;
-    document.querySelectorAll('.produit')[2].innerText = '3. ' + p3;
+    if(p1) document.querySelectorAll('.produit')[0].innerText = '1. ' + p1;
+    if(p2) document.querySelectorAll('.produit')[1].innerText = '2. ' + p2;
+    if(p3) document.querySelectorAll('.produit')[2].innerText = '3. ' + p3;
 
-    const message = `Salut, je veux commander sur ${nom} via JAAY`;
+    const produits = [p1, p2, p3].filter(p => p!== '').join('\n');
+    const message = `Salut ${nom}, je veux commander :\n${produits}\nvia JAAY`;
     document.getElementById('whatsappLink').href = `https://wa.me/${whatsapp}?text=${encodeURIComponent(message)}`;
   </script>
 </body>
