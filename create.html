@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Créer ma boutique - JAAY</title>
+  <title>Paramètres - JAAY</title>
   <style>
     :root{
       --bg: #FFF8E1;
@@ -22,125 +22,69 @@
     *{ transition: background 0.3s, color 0.3s, border 0.3s; box-sizing: border-box; }
     body { background: var(--bg); font-family: Arial; padding: 20px; color: var(--text); margin: 0; }
    .container { max-width: 600px; margin: 0 auto; background: var(--card); padding: 30px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); border: 1px solid var(--border); }
-   .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
-    h1 { color: var(--orange); text-align: center; margin: 0; flex:1; }
-   .lang-select { padding: 8px; border-radius: 8px; border: 2px solid var(--border); background: var(--bg); color: var(--text); font-weight: bold; }
+   .top-bar { background: var(--orange); padding: 15px; border-radius: 10px; display: flex; align-items: center; gap: 10px; margin-bottom: 20px; color: white; }
+   .top-bar h1 { margin: 0; flex: 1; text-align: center; font-size: 20px; }
    .menu { display: flex; gap: 10px; margin-bottom: 25px; justify-content: center; }
    .menu a { text-decoration: none; color: var(--vert); font-weight: bold; padding: 8px 15px; border: 2px solid var(--vert); border-radius: 8px; font-size: 14px; }
    .menu a.active { background: var(--vert); color: white; }
-    label { font-weight: bold; margin-top: 10px; display: block; }
-    input { width: 100%; padding: 12px; margin: 5px 0 15px 0; border: 2px solid var(--border); border-radius: 8px; font-size: 16px; box-sizing: border-box; background: var(--bg); color: var(--text); }
-    input::placeholder { color: #999; }
-    body.dark input::placeholder { color: #777; }
-    button { width: 100%; padding: 15px; background: var(--vert); color: white; border: none; border-radius: 8px; font-size: 18px; cursor: pointer; font-weight: bold; }
-    button:hover { background: #219A52; }
-    #result { margin-top:20px; text-align: center; }
-    #result a { color:var(--vert); font-weight: bold; font-size: 18px; }
+   .box { background: var(--bg); padding: 15px; border-radius: 10px; margin-bottom: 15px; border: 1px solid var(--border); }
+   .box label { color: var(--orange); font-weight: bold; display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+    select { width: 100%; padding: 12px; border: 2px solid var(--border); border-radius: 8px; font-size: 16px; background: var(--card); color: var(--text); }
   </style>
 </head>
 <body>
   <div class="container">
 
     <div class="top-bar">
-      <button onclick="window.history.back()" style="background: var(--orange); color: white; border: none; border-radius: 50%; width: 40px; height: 40px; font-size: 20px; cursor: pointer; font-weight: bold;">←</button>
-      <select id="langue" class="lang-select" onchange="changerLangue(this.value)">
-        <option value="fr">Français</option>
-        <option value="en">English</option>
-        <option value="wo">Wolof</option>
+      <button onclick="window.history.back()" style="background: white; color: var(--orange); border: none; border-radius: 50%; width: 40px; height: 40px; font-size: 20px; cursor: pointer; font-weight: bold;">←</button>
+      <h1>Paramètres JAAY</h1>
+    </div>
+
+    <div class="menu">
+      <a href="create.html">Créer</a>
+      <a href="boutique.html">Boutique</a>
+      <a href="parametres.html" class="active">Paramètres</a>
+    </div>
+
+    <!-- J'AI ENLEVE SEULEMENT LE BLOC LANGUE ICI -->
+
+    <div class="box">
+      <label>💰 Devise</label>
+      <select id="devise">
+        <option value="XOF">Franc CFA - XOF</option>
+        <option value="USD">Dollar - USD</option>
+        <option value="EUR">Euro - EUR</option>
       </select>
     </div>
 
-    <h1 data-fr="Créer ma boutique JAAY" data-en="Create my JAAY Shop" data-wo="Défaral Sama Boutique JAAY">Créer ma boutique JAAY</h1>
-
-    <div class="menu">
-      <a href="create.html" class="active" data-fr="Créer" data-en="Create" data-wo="Défaral">Créer</a>
-      <a href="boutique.html" data-fr="Boutique" data-en="Shop" data-wo="Boutique">Boutique</a>
-      <a href="parametres.html" data-fr="Paramètres" data-en="Settings" data-wo="Paramètre yi">Paramètres</a>
+    <div class="box">
+      <label>🔒 Politique de Confidentialité</label>
+      <select>
+        <option>Lire la politique complète</option>
+      </select>
     </div>
 
-    <form id="boutiqueForm">
-      <label data-fr="Nom de ta boutique" data-en="Shop Name" data-wo="Turul sa Boutique">Nom de ta boutique</label>
-      <input type="text" id="nom" placeholder="Ex: Mode Fatou" required>
+    <div class="box">
+      <label>📄 Conditions Générales de Vente</label>
+      <select>
+        <option>Lire les CGV</option>
+      </select>
+    </div>
 
-      <label data-fr="Numéro WhatsApp avec indicatif" data-en="WhatsApp Number with country code" data-wo="Numéro WhatsApp ak indicatif">Numéro WhatsApp avec indicatif</label>
-      <input type="tel" id="whatsapp" placeholder="Ex: 221771234567" required>
-
-      <label data-fr="Produit 1" data-en="Product 1" data-wo="Jëfandikoo 1">Produit 1</label>
-      <input type="text" id="p1" placeholder="Ex: Robe Wax - 15000 FCFA">
-
-      <label data-fr="Produit 2" data-en="Product 2" data-wo="Jëfandikoo 2">Produit 2</label>
-      <input type="text" id="p2" placeholder="Ex: Chaussures - 10000 FCFA">
-
-      <label data-fr="Produit 3" data-en="Product 3" data-wo="Jëfandikoo 3">Produit 3</label>
-      <input type="text" id="p3" placeholder="Ex: Sac - 8000 FCFA">
-
-      <button type="submit" data-fr="Générer ma boutique" data-en="Generate my Shop" data-wo="Défal Sama Boutique">Générer ma boutique</button>
-    </form>
-    <div id="result"></div>
   </div>
 
   <script>
-    function setLanguage(lang) {
-      document.documentElement.lang = lang;
-      document.getElementById('langue').value = lang;
-      localStorage.setItem('jaay_lang', lang);
-
-      document.querySelectorAll('[data-fr]').forEach(el => {
-        el.innerText = el.getAttribute('data-' + lang);
-      });
-
-      const placeholders = {
-        fr: ["Ex: Mode Fatou", "Ex: 221771234567", "Ex: Robe Wax - 15000 FCFA", "Ex: Chaussures - 10000 FCFA", "Ex: Sac - 8000 FCFA"],
-        en: ["Ex: Fatou Fashion", "Ex: 221771234567", "Ex: Wax Dress - 15000 FCFA", "Ex: Shoes - 10000 FCFA", "Ex: Bag - 8000 FCFA"],
-        wo: ["Ex: Mode Fatou", "Ex: 221771234567", "Ex: Robe Wax - 15000 FCFA", "Ex: Der yi - 10000 FCFA", "Ex: Sac - 8000 FCFA"]
-      };
-      document.getElementById('nom').placeholder = placeholders[lang][0];
-      document.getElementById('whatsapp').placeholder = placeholders[lang][1];
-      document.getElementById('p1').placeholder = placeholders[lang][2];
-      document.getElementById('p2').placeholder = placeholders[lang][3];
-      document.getElementById('p3').placeholder = placeholders[lang][4];
-    }
-
-    function changerLangue(lang){
-      setLanguage(lang);
-    }
-
-    // CHARGER LE THEME ET LA LANGUE AU DEMARRAGE
+    // CHARGER LE THEME AU DEMARRAGE
     window.addEventListener('DOMContentLoaded', () => {
       const savedTheme = localStorage.getItem('jaay_theme');
       if(savedTheme === 'dark'){ document.body.classList.add('dark'); }
 
-      const savedLang = localStorage.getItem('jaay_lang') || 'fr';
-      setLanguage(savedLang);
+      document.getElementById('devise').value = localStorage.getItem('jaay_devise') || 'XOF';
     });
 
-    document.getElementById('nom').value = localStorage.getItem('nomBoutique') || '';
-    document.getElementById('whatsapp').value = localStorage.getItem('numeroWhatsapp') || '';
-
-    document.getElementById('boutiqueForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      const nom = document.getElementById('nom').value;
-      const whatsapp = document.getElementById('whatsapp').value.replace(/\D/g,'');
-      const p1 = document.getElementById('p1').value;
-      const p2 = document.getElementById('p2').value;
-      const p3 = document.getElementById('p3').value;
-
-      localStorage.setItem('nomBoutique', nom);
-      localStorage.setItem('numeroWhatsapp', whatsapp);
-
-      const lien = `boutique.html?nom=${encodeURIComponent(nom)}&w=${whatsapp}&p1=${encodeURIComponent(p1)}&p2=${encodeURIComponent(p2)}&p3=${encodeURIComponent(p3)}`;
-
-      const lang = localStorage.getItem('jaay_lang') || 'fr';
-      const msg = {
-        fr: {ok: '✅ Ta boutique est prête!', voir: '👉 Voir ma boutique'},
-        en: {ok: '✅ Your shop is ready!', voir: '👉 View my shop'},
-        wo: {ok: '✅ Sa Boutique bi dafa ready!', voir: '👉 Gisal Sama Boutique'}
-      };
-
-      document.getElementById('result').innerHTML =
-        `<p>${msg[lang].ok}</p>
-         <a href="${lien}" target="_blank">${msg[lang].voir}</a>`;
+    document.getElementById('devise').addEventListener('change', (e) => {
+      localStorage.setItem('jaay_devise', e.target.value);
     });
   </script>
 </body>
-        </html>
+                                        </html>
