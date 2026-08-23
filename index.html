@@ -7,21 +7,24 @@
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Arial', sans-serif; }
     body { background: #FFF8E1; color: #333; }
-    .container { max-width: 900px; margin: 0 auto; padding: 20px; }
-    
+   .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+
     header { text-align: center; padding: 40px 20px; }
-    .logo { font-size: 48px; font-weight: bold; color: #E67E22; }
-    .logo span { color: #27AE60; }
-    .slogan { font-size: 20px; margin-top: 10px; color: #555; }
-    
-    .cta { background: #E67E22; color: white; padding: 15px 30px; border-radius: 10px; 
-           text-decoration: none; font-size: 18px; display: inline-block; margin-top: 20px; }
-    
-    .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin: 50px 0; }
-    .card { background: white; padding: 25px; border-radius: 15px; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-    .icon { font-size: 40px; margin-bottom: 10px; }
-    
+   .logo { font-size: 48px; font-weight: bold; color: #E67E22; }
+   .logo span { color: #27AE60; }
+   .slogan { font-size: 20px; margin-top: 10px; color: #555; }
+
+   .cta { background: #E67E22; color: white; padding: 15px 30px; border-radius: 10px;
+           text-decoration: none; font-size: 18px; display: inline-block; margin-top: 20px; font-weight: bold; }
+   .cta:hover { background: #D35400; }
+
+   .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin: 50px 0; }
+   .card { background: white; padding: 25px; border-radius: 15px; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+   .icon { font-size: 40px; margin-bottom: 10px; }
+   .card h3 { margin-bottom: 5px; }
+
     footer { text-align: center; padding: 30px; color: #777; }
+    @media(max-width: 700px){.features { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
@@ -29,7 +32,7 @@
     <header>
       <div class="logo">J<span>AA</span>Y</div>
       <p class="slogan">Crée ta boutique WhatsApp en 2 minutes. Vends partout au Sénégal.</p>
-      <a href="#create" class="cta">Créer ma boutique gratuitement</a>
+      <a href="create.html" class="cta">Créer ma boutique gratuitement</a>
     </header>
 
     <section class="features">
@@ -55,4 +58,4 @@
     </footer>
   </div>
 </body>
-        </html>
+  </html>
