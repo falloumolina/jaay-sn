@@ -6,13 +6,22 @@
   <title id="title">Ma Boutique - JAAY</title>
   <style>
     body { background: #FFF8E1; font-family: Arial; margin: 0; }
-  .header { background: #E67E22; color: white; padding: 30px 20px; text-align: center; }
-  .header h1 { margin: 0; font-size: 28px; }
-  .container { max-width: 600px; margin: 20px auto; padding: 20px; }
-  .produit { background: white; padding: 15px; margin: 10px 0; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); font-size: 16px; }
-  .whatsapp-btn { display: block; background: #25D366; color: white; text-align: center; padding: 15px;
-                    border-radius: 10px; text-decoration: none; font-size: 18px; margin-top: 20px; font-weight: bold; }
-  .footer { text-align: center; padding: 20px; font-size: 12px; color: #777; }
+   .header { background: #E67E22; color: white; padding: 30px 20px; text-align: center; }
+   .header h1 { margin: 0; font-size: 28px; }
+   .container { max-width: 600px; margin: 20px auto; padding: 20px; }
+   .produit { background: white; padding: 15px; margin: 10px 0; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); font-size: 16px; }
+
+   .paiement-section { background: white; padding: 15px; margin: 20px 0; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+   .paiement-section h3 { margin: 0 0 10px 0; color: #E67E22; font-size: 16px; }
+   .payment-option { padding: 12px; border: 2px solid #ddd; border-radius: 8px; margin: 8px 0; cursor: pointer; }
+   .payment-option.selected { border-color: #27AE60; background: #E8F8F5; }
+   .payment-option input { margin-right: 8px; }
+   .num-paiement { font-size: 13px; color: #27AE60; font-weight: bold; margin-top: 5px; }
+
+   .whatsapp-btn { display: block; background: #25D366; color: white; text-align: center; padding: 15px;
+                    border-radius: 10px; text-decoration: none; font-size: 18px; margin-top: 20px; font-weight: bold; border: none; width: 100%; cursor: pointer; }
+   .whatsapp-btn:disabled { background: #ccc; cursor: not-allowed; }
+   .footer { text-align: center; padding: 20px; font-size: 12px; color: #777; }
   </style>
 </head>
 <body>
@@ -26,9 +35,14 @@
     <div class="produit">2. Produit 2</div>
     <div class="produit">3. Produit 3</div>
 
-    <a id="whatsappLink" class="whatsapp-btn" target="_blank">
+    <div class="paiement-section" id="paiementBox">
+      <h3>Choisir mode de paiement</h3>
+      <div id="optionsPaiement"></div>
+    </div>
+
+    <button id="whatsappBtn" class="whatsapp-btn" onclick="commander()">
       📱 Commander sur WhatsApp
-    </a>
+    </button>
   </div>
 
   <div class="footer">Boutique créée avec JAAY.sn</div>
@@ -48,9 +62,74 @@
     if(p2) document.querySelectorAll('.produit')[1].innerText = '2. ' + p2;
     if(p3) document.querySelectorAll('.produit')[2].innerText = '3. ' + p3;
 
-    const produits = [p1, p2, p3].filter(p => p!== '').join('\n');
-    const message = `Salut ${nom}, je veux commander :\n${produits}\nvia JAAY`;
-    document.getElementById('whatsappLink').href = `https://wa.me/${whatsapp}?text=${encodeURIComponent(message)}`;
+    // Récupérer les paiements depuis parametres.html
+    const payWave = localStorage.getItem('jaay_payWave') === 'true';
+    const payOM = localStorage.getItem('jaay_payOM') === 'true';
+    const payCash = localStorage.getItem('jaay_payCash') === 'true';
+    const numWave = localStorage.getItem('jaay_numWave') || '';
+    const numOM = localStorage.getItem('jaay_numOM') || '';
+
+    let modeSelectionne = '';
+    const optionsDiv = document.getElementById('optionsPaiement');
+
+    // Afficher les options activées
+    if(payWave){
+      optionsDiv.innerHTML += `
+        <div class="payment-option" onclick="selectPaiement('wave')">
+          <input type="radio" name="paiement" id="wave">
+          <label for="wave"><b>Wave</b></label>
+          <div class="num-paiement">Numéro: ${numWave}</div>
+        </div>`;
+    }
+    if(payOM){
+      optionsDiv.innerHTML += `
+        <div class="payment-option" onclick="selectPaiement('om')">
+          <input type="radio" name="paiement" id="om">
+          <label for="om"><b>Orange Money</b></label>
+          <div class="num-paiement">Numéro: ${numOM}</div>
+        </div>`;
+    }
+    if(payCash){
+      optionsDiv.innerHTML += `
+        <div class="payment-option" onclick="selectPaiement('cash')">
+          <input type="radio" name="paiement" id="cash">
+          <label for="cash"><b>Paiement à la livraison</b></label>
+        </div>`;
+    }
+
+    // Si aucun mode activé, cacher la section
+    if(!payWave &&!payOM &&!payCash){
+      document.getElementById('paiementBox').style.display = 'none';
+    }
+
+    function selectPaiement(mode){
+      modeSelectionne = mode;
+      document.querySelectorAll('.payment-option').forEach(el => el.classList.remove('selected'));
+      document.querySelector(`#${mode}`).checked = true;
+      document.querySelector(`#${mode}`).parentElement.classList.add('selected');
+    }
+
+    function commander(){
+      const produits = [p1, p2, p3].filter(p => p!== '').join('\n');
+
+      let message = `Salut ${nom}, je veux commander :\n${produits}\n\n`;
+
+      if(modeSelectionne === 'wave'){
+        message += `Mode de paiement: Wave - ${numWave}`;
+      } else if(modeSelectionne === 'om'){
+        message += `Mode de paiement: Orange Money - ${numOM}`;
+      } else if(modeSelectionne === 'cash'){
+        message += `Mode de paiement: Paiement à la livraison`;
+      } else if(payWave || payOM || payCash){
+        alert('Veuillez choisir un mode de paiement');
+        return;
+      }
+
+      message += `\n\nvia JAAY`;
+
+      const lien = `https://wa.me/${whatsapp}?text=${encodeURIComponent(message)}`;
+      window.open(lien, '_blank');
+    }
   </script>
 </body>
   </html>
